@@ -23,7 +23,7 @@ be installed using pip.
 
 Display the global help message:
 
-```bash
+```console
 $ openstack-helper --help
 usage: openstack-helper [-h] [--debug]
                         {unused_ports,up,images_usage,iu,resource_provider,rp,check_allocations,ca} ...
@@ -51,12 +51,11 @@ options:
         openstack-helper rp --resource-class vcpu --sort-by "Current Alloc Ratio"
         openstack-helper unused_ports -h
         openstack-helper unused_ports --network-id 17583b07-92c2-4a07-9fb9-5bc8705d58e2
-
 ```
 
 Get help for a specific subcommand:
 
-```bash
+```console
 $ openstack-helper iu --help
 usage: openstack-helper images_usage [-h] [--name NAME] [--image-id IMAGE_ID]
                                      [--tag TAG] [--days DAYS] [--current-project]
@@ -74,6 +73,7 @@ options:
                        (otherwise, all projects are included)
   --show-no-vms        Show only images that have zero VMs using them
   --show-vm-details    Display detailed VM information (IDs and names)
+
 
 $ openstack-helper rp --help
 usage: openstack-helper resource_provider [-h] [-r [{VCPU,MEMORY_MB,DISK_GB} ...]]
@@ -95,7 +95,6 @@ options:
   --aggregates-uuid MEMBER_OF
                         Filter by aggregates UUIDs. When specifying multiple UUIDs,
                         separate them with commas
-
 ```
 
 ## Authentication Methods
