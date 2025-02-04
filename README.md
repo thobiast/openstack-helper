@@ -1,5 +1,7 @@
 openstack-helper - A command-line tool to assist in OpenStack cloud administration.
 
+
+[![Build and Test](https://github.com/thobiast/openstack-helper/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/thobiast/openstack-helper/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
