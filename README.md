@@ -1,5 +1,10 @@
-# openstack-helper
-A command-line tool to assist in OpenStack cloud administration.
+openstack-helper - A command-line tool to assist in OpenStack cloud administration.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+
+## About
 
 This script helps with the administration of an OpenStack environment.
 While the OpenStack CLI is powerful, this script complements it by providing
