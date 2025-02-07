@@ -21,25 +21,27 @@ be installed using pip.
 
 ## Usage
 
-Display the global help message:
+To view the global help message:
 
 ```console
 $ openstack-helper --help
 usage: openstack-helper [-h] [--debug]
-                        {unused_ports,up,images_usage,iu,resource_provider,rp,check_allocations,ca} ...
+                        {unused_ports,up,images_usage,iu,resource_provider,rp,
+						 check_allocations,ca,lb_flavors,lbf} ...
 
 OpenStack Helper tool
 
 positional arguments:
-  {unused_ports,up,images_usage,iu,resource_provider,rp,check_allocations,ca}
+  {unused_ports,up,images_usage,iu,resource_provider,rp,check_allocations,ca,lb_flavors,lbf}
     unused_ports (up)   Retrieves and checks unused OpenStack ports
-    images_usage (iu)   Show usage details about images, including which VMs are
-                        using them.
+    images_usage (iu)   Show usage details about images, including which VMs are using them
     resource_provider (rp)
-                        Retrieves and displays inventory and usage details about
-                        resource providers
+                        Retrieves and displays inventory and usage details about resource
+                        providers
     check_allocations (ca)
                         Check instance allocation in Nova and Placement
+    lb_flavors (lbf)    List load balancer flavors and associated flavor profiles and Nova
+                        flavors
 
 options:
   -h, --help            show this help message and exit
@@ -51,9 +53,10 @@ options:
         openstack-helper rp --resource-class vcpu --sort-by "Current Alloc Ratio"
         openstack-helper unused_ports -h
         openstack-helper unused_ports --network-id 17583b07-92c2-4a07-9fb9-5bc8705d58e2
+        openstack-helper lbf
 ```
 
-Get help for a specific subcommand:
+To view help for a specific subcommand, for example, run:
 
 ```console
 $ openstack-helper iu --help
