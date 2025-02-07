@@ -46,6 +46,7 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   --debug, -d           debug flag
+  --insecure            disable TLS certificate verification for OpenStack API connections
 
     Example of use:
         openstack-helper --help

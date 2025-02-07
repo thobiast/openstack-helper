@@ -26,15 +26,16 @@ class OpenStackAPI:
         placement (PlacementAPI): Interface to OpenStack Placement operations.
     """
 
-    def __init__(self, debug=False):
+    def __init__(self, debug=False, insecure=False):
         """
         Initialize the OpenStackAPI instance and establish a connection.
 
         Args:
             debug (bool): Whether to enable debug logging.
+            insecure (bool): If True, disable TLS certificate verification
         """
         openstack.enable_logging(debug=debug)
-        self.os_conn = openstack.connect()
+        self.os_conn = openstack.connect(insecure=insecure)
 
         self.image = ImageAPI(self.os_conn)
         self.compute = ComputeAPI(self.os_conn)

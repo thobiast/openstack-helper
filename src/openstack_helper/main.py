@@ -100,6 +100,11 @@ def parse_args():
     )
 
     parser.add_argument("--debug", "-d", action="store_true", help="debug flag")
+    parser.add_argument(
+        "--insecure",
+        action="store_true",
+        help="disable TLS certificate verification for OpenStack API connections",
+    )
 
     # Add subcommands options
     subparsers = parser.add_subparsers(required=True, dest="command")
@@ -340,7 +345,7 @@ def main():
 
     logging.debug(args)
 
-    openstack_api = OpenStackAPI()
+    openstack_api = OpenStackAPI(insecure=args.insecure)
     try:
         args.func(openstack_api, args)
     except ValueError as e:
