@@ -6,6 +6,8 @@ OpenStack Helper CLI Tool
 Provides subcommands for common OpenStack operations:
 - 'check_allocations' (alias 'ca'): Check instance allocation in Nova and Placement.
 - 'images_usage' (alias 'iu'): Show image usage details and the VMs referencing them.
+- 'lb_flavors' (alias 'lbf'): List load balancer flavors along with associated
+    flavor profiles and Nova flavors.
 - 'resource_provider' (alias 'rp'): Retrieve and display resource provider data.
 - 'unused_ports' (alias 'up'): Identify and analyze unused ports.
 ...
@@ -21,6 +23,7 @@ import sys
 from openstack_helper.check_allocations import handle_check_allocations_cmd
 from openstack_helper.common import is_valid_uuid
 from openstack_helper.images_usage import handle_images_usage_cmd
+from openstack_helper.loadbalancer_flavors import handle_lb_flavors_cmd
 from openstack_helper.logging_config import setup_logging
 from openstack_helper.openstack_api import OpenStackAPI
 from openstack_helper.resource_provider import handle_resource_provider_cmd
@@ -87,6 +90,7 @@ def parse_args():
         %(prog)s rp --resource-class vcpu --sort-by "Current Alloc Ratio"
         %(prog)s unused_ports -h
         %(prog)s unused_ports --network-id 17583b07-92c2-4a07-9fb9-5bc8705d58e2
+        %(prog)s lbf
     """
 
     parser = argparse.ArgumentParser(
@@ -285,6 +289,37 @@ def parse_args():
         help="Comma-separated list of instance UUIDs to check allocation",
     )
     check_allocations_parser.set_defaults(func=handle_check_allocations_cmd)
+
+    #########################
+    # Load Balancer Flavors #
+    #########################
+    lb_flavors_parser = subparsers.add_parser(
+        "lb_flavors",
+        aliases=["lbf"],
+        help="List load balancer flavors and associated flavor profiles and Nova flavors",
+        description=(
+            "List load balancer flavors along with their load balancer flavor profiles and "
+            "the associated Nova flavors."
+        ),
+        epilog="""
+    Example:
+      %(prog)s
+      %(prog)s --flavor-id 1234abcd-5b0c-46e0-ada9-2a5090b9151e
+      %(prog)s --flavor-id 1234abcd-5b0c-46e0-ada9-2a5090b9151e --detail
+      %(prog)s --flavor-name "example_flavor"
+    """,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    lb_flavors_parser.add_argument(
+        "--flavor-id", type=str, help="Query load balancer flavor by its ID"
+    )
+    lb_flavors_parser.add_argument(
+        "--flavor-name", type=str, help="Query load balancer flavor by its name"
+    )
+    lb_flavors_parser.add_argument(
+        "--detail", action="store_true", help="Display detailed information"
+    )
+    lb_flavors_parser.set_defaults(func=handle_lb_flavors_cmd)
 
     return parser.parse_args()
 
