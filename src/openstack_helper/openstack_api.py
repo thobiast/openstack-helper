@@ -38,9 +38,54 @@ class OpenStackAPI:
 
         self.image = ImageAPI(self.os_conn)
         self.compute = ComputeAPI(self.os_conn)
+        self.loadbalancer = LoadBalanerAPI(self.os_conn)
         self.volume = VolumeAPI(self.os_conn)
         self.network = NetworkAPI(self.os_conn)
         self.placement = PlacementAPI(self.os_conn)
+
+
+class LoadBalanerAPI:
+    """
+    A wrapper around OpenStack Load Balancer (Octavia) API.
+
+    Attributes:
+        os_conn (openstack.connection.Connection): An authenticated OpenStack SDK
+            connection object.
+    """
+
+    def __init__(self, os_conn):
+        self.os_conn = os_conn
+
+    def list_flavors(self, **filters):
+        """
+        Retrieve a list of available load balancer flavors.
+
+        Args:
+            **filters: Additional filters to apply.
+
+        Returns:
+            list: A list of openstack.load_balancer.v2.flavor objects.
+        """
+        return list(self.os_conn.load_balancer.flavors(**filters))
+
+    def find_flavor_profile(self, name_or_id, ignore_missing=True):
+        """
+        Find a single flavor profile.
+
+        Args:
+            name_or_id (str): The name or UUID of the flavor profile to find.
+            ignore_missing (bool, optional): If True, returns None if the flavor
+                profile is not found. If False, raises an exception if the profile
+                does not exist. Defaults to True.
+
+        Returns:
+            openstack.load_balancer.v2.flavor_profile.FlavorProfile or None:
+                The matching flavor profile object if found, or None if `ignore_missing`
+                is True and no profile matches the given identifier.
+        """
+        return self.os_conn.load_balancer.find_flavor_profile(
+            name_or_id, ignore_missing=ignore_missing
+        )
 
 
 # pylint: disable=too-few-public-methods
@@ -175,6 +220,22 @@ class ComputeAPI:
         return self.os_conn.compute.find_server(
             server_id, ignore_missing=ignore_missing, details=details
         )
+
+    def find_flavor(self, name_or_id, ignore_missing=True):
+        """
+        Retrieve an OpenStack compute flavor.
+
+        Args:
+            name_or_id (str): The UUID or name of the server to find.
+            ignore_missing (bool, optional): If True, returns None when
+                the flavor does not exist. If False, an exception is raised.
+                Defaults to True.
+
+        Returns:
+            openstack.compute.v2.flavor.Flavor: An OpenStack flavor object representing
+            the specified flavor.
+        """
+        return self.os_conn.compute.find_flavor(name_or_id, ignore_missing=ignore_missing)
 
 
 class PlacementAPI:
