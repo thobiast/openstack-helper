@@ -25,6 +25,7 @@ class ComputeFlavor:
         vcpus (int): Number of vCPUs
         ram (int): Amount of RAM
         disk (int): Disk size
+        extra_specs (str): Extra specs
     """
 
     id: str
@@ -32,6 +33,7 @@ class ComputeFlavor:
     vcpus: int
     ram: int
     disk: int
+    extra_specs: str
 
 
 @dataclass
@@ -223,6 +225,7 @@ def get_compute_flavor(openstack_api, flavor_profile):
             vcpus=int(compute_flavor.vcpus),
             ram=int(compute_flavor.ram),
             disk=int(compute_flavor.disk),
+            extra_specs=compute_flavor.extra_specs,
         )
     except (ValueError, TypeError, AttributeError) as e:
         logging.error(
