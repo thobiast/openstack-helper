@@ -8,18 +8,21 @@ import subprocess  # nosec B404
 import uuid
 
 try:
-    from rich.console import Console
+    from rich.console import Console, Group
     from rich.table import Table
+    from rich.text import Text
     from rich.tree import Tree
 
     RICH_AVAILABLE = True
-    __all__ = ["RICH_AVAILABLE", "Console", "Table", "Tree"]
+    __all__ = ["RICH_AVAILABLE", "Console", "Group", "Table", "Text", "Tree"]
 except ImportError:
     RICH_AVAILABLE = False
     Console = None
+    Group = None
     Table = None
+    Text = None
     Tree = None
-    __all__ = ["RICH_AVAILABLE", "Console", "Table", "Tree"]
+    __all__ = ["RICH_AVAILABLE", "Console", "Group", "Table", "Text", "Tree"]
 
 
 def is_valid_uuid(uuid_str):

@@ -116,6 +116,35 @@ class NetworkAPI:
         """
         return list(self.os_conn.network.ports(**filters))
 
+    def list_routers(self, **filters):
+        """
+        Retrieve a list of OpenStack routers based on the provided filters.
+
+        Args:
+            **filters: Arbitrary keyword arguments specifying filtering
+                       criteria for the OpenStack router query. Common filters
+                       'flavor_id', 'status', 'name', 'project_id', etc.
+
+        Returns:
+            list: A list of OpenStack routers objects that match the filters.
+        """
+        return list(self.os_conn.network.routers(**filters))
+
+    def find_network(self, name_or_id, ignore_missing=True):
+        """
+        Retrieve an OpenStack network.
+
+        Args:
+            name_or_id (str): The UUID or name of the network to find.
+            ignore_missing (bool, optional): If True, returns None when
+                the network does not exist. If False, an exception is raised.
+                Defaults to True.
+
+        Returns:
+            openstack.network.v2.network.Network: An OpenStack network object
+        """
+        return self.os_conn.network.find_network(name_or_id, ignore_missing=ignore_missing)
+
 
 # pylint: disable=too-few-public-methods
 class VolumeAPI:

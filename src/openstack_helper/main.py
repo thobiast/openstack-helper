@@ -27,6 +27,7 @@ from openstack_helper.loadbalancer_flavors import handle_lb_flavors_cmd
 from openstack_helper.logging_config import setup_logging
 from openstack_helper.openstack_api import OpenStackAPI
 from openstack_helper.resource_provider import handle_resource_provider_cmd
+from openstack_helper.routers_info import handle_routers_info_cmd
 from openstack_helper.unused_ports import handle_unused_ports_cmd
 
 
@@ -294,6 +295,31 @@ def parse_args():
         help="Comma-separated list of instance UUIDs to check allocation",
     )
     check_allocations_parser.set_defaults(func=handle_check_allocations_cmd)
+
+    ################
+    # Routers info #
+    ################
+    routers_info_parser = subparsers.add_parser(
+        "router_info",
+        aliases=["ri"],
+        description="Show router's information",
+        help="Show router's information",
+    )
+    routers_info_parser.add_argument(
+        "--uuid",
+        type=parse_uuid_list,
+        required=False,
+        dest="uuid",
+        help="Comma-separated list of routers UUIDs to show information",
+    )
+    routers_info_parser.add_argument(
+        "--name",
+        type=str,
+        required=False,
+        dest="name",
+        help="Comma-separated list of routers name to show information",
+    )
+    routers_info_parser.set_defaults(func=handle_routers_info_cmd)
 
     #########################
     # Load Balancer Flavors #
